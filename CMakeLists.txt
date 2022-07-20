@@ -49,7 +49,9 @@ add_executable(${EXECUTABLE_NAME})
 
 target_sources(${EXECUTABLE_NAME} PRIVATE
                ${CMAKE_CURRENT_LIST_DIR}/src/main.cpp
-               ${CMAKE_CURRENT_LIST_DIR}/src/Curses.cpp)
+               ${CMAKE_CURRENT_LIST_DIR}/src/Centicom.cpp
+               ${CMAKE_CURRENT_LIST_DIR}/src/Curses.cpp
+               ${CMAKE_CURRENT_LIST_DIR}/src/Connection.cpp)
 
 include_directories(${EXECUTABLE_NAME}
                     ${CMAKE_CURRENT_LIST_DIR}/inc/

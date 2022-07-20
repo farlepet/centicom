@@ -1,14 +1,22 @@
 #include <iostream>
 
-#include <Curses.hpp>
+#include <Centicom.hpp>
 
 int main(int argc, char **argv) {
     (void)argc;
     (void)argv;
     std::cout << "centicom" << std::endl;
 
-    Curses curses;
-    curses.start();
-    curses.end();
+    CenticomSettings cSettings = {
+        .cSettings = {
+            .portPath = "/dev/ttyUSB0",
+            .baud     = 9600,
+        }
+    };
+
+    Centicom centicom(cSettings);
+    centicom.run();
+
+    centicom.stop();
     return 0;
 }

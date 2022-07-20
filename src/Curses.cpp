@@ -2,7 +2,11 @@
 #include <sstream>
 #include <string>
 
+#include <signal.h>
+
 #include <Curses.hpp>
+
+#define CTRL(x) ((x) & 0x1F)
 
 Curses::Curses() {
 
@@ -75,6 +79,9 @@ std::string Curses::getLine(void) {
         int ch = getch();
 
         if(ch == KEY_ENTER || ch == '\n') {
+            /* @todo Support multi-line buffering */
+            /* @todo Support multiple types of line endings */
+            ss << "\r\n";
             wclear(this->cmdWin);
             wrefresh(this->cmdWin);
             break;
@@ -90,6 +97,8 @@ std::string Curses::getLine(void) {
                 mvwaddch(this->cmdWin, y, x, ' ');
                 wmove(this->cmdWin, y, x);
             }
+        } else if (ch == CTRL('c')) {
+            raise(SIGINT);
         } else {
             wprintw(this->cmdWin, "%c", ch);
             ss << (char)ch;
@@ -104,5 +113,10 @@ std::string Curses::getLine(void) {
 
 void Curses::writeTerminal(std::string str) {
     wprintw(this->termWin, "%s", str.c_str());
+    wrefresh(this->termWin);
+}
+
+void Curses::putTerminal(uint8_t ch) {
+    wprintw(this->termWin, "%c", ch);
     wrefresh(this->termWin);
 }

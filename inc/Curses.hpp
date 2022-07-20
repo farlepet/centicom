@@ -66,4 +66,11 @@ public:
      * @param str Character data to write
      */
     void writeTerminal(std::string str);
+
+    /**
+     * @brief Write single character to terminal window
+     *
+     * @param ch Character to write
+     */
+    void putTerminal(uint8_t ch);
 };
